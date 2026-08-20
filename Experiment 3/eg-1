@@ -1,0 +1,34 @@
+# DFS - Start State 5 and Goal State 8
+
+graph = {
+    5: [3, 7],
+    3: [2, 4],
+    7: [8],
+    2: [],
+    4: [8],
+    8: []
+}
+
+start = 5
+goal = 8
+
+stack = [start]
+visited = []
+
+while stack:
+    node = stack.pop()
+
+    if node not in visited:
+        visited.append(node)
+        print("Visited:", node)
+
+        if node == goal:
+            print("Goal state found!")
+            break
+
+        # Add children in reverse order for left-to-right DFS
+        for child in reversed(graph[node]):
+            if child not in visited:
+                stack.append(child)
+
+print("\nDFS Traversal:", visited)

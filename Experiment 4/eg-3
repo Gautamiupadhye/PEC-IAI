@@ -1,0 +1,73 @@
+# Best First Search
+# Start State: A
+# Goal State: G
+
+import heapq
+
+# Graph with heuristic values
+graph = {
+    'A': [('B', 13), ('C', 10), ('D', 14)],
+    'B': [],
+    'C': [('E', 11), ('F', 8)],
+    'D': [('H', 9)],
+    'E': [],
+    'F': [('I', 4), ('G', 0)],
+    'H': [],
+    'I': [],
+    'G': []
+}
+
+start = 'A'
+goal = 'G'
+
+# Priority Queue
+open_list = []
+heapq.heappush(open_list, (15, start))
+
+closed = set()
+parent = {start: None}
+
+while open_list:
+
+    # Select node with minimum heuristic
+    heuristic, current = heapq.heappop(open_list)
+
+    if current in closed:
+        continue
+
+    print("Selected:", current, "Heuristic:", heuristic)
+
+    closed.add(current)
+
+    # Check whether goal is reached
+    if current == goal:
+        print("\nGoal state found!")
+        break
+
+    # Generate child nodes
+    for child, h in graph[current]:
+
+        if child not in closed:
+
+            if child not in parent:
+                parent[child] = current
+
+            heapq.heappush(open_list, (h, child))
+
+else:
+    print("Goal state not found!")
+
+
+# Display path
+if goal in parent:
+
+    path = []
+    node = goal
+
+    while node is not None:
+        path.append(node)
+        node = parent[node]
+
+    path.reverse()
+
+    print("\nPath:", " -> ".join(path))

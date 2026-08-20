@@ -1,0 +1,42 @@
+# DFS - Start State 1 and Goal State 15
+
+graph = {
+    1: [2, 3],
+    2: [4, 5],
+    3: [6, 7],
+    4: [8],
+    5: [9],
+    6: [10],
+    7: [11],
+    8: [12],
+    9: [13],
+    10: [14],
+    11: [15],
+    12: [],
+    13: [],
+    14: [],
+    15: []
+}
+
+start = 1
+goal = 15
+
+stack = [start]
+visited = []
+
+while stack:
+    node = stack.pop()
+
+    if node not in visited:
+        visited.append(node)
+        print("Visited:", node)
+
+        if node == goal:
+            print("Goal state found!")
+            break
+
+        for child in reversed(graph[node]):
+            if child not in visited:
+                stack.append(child)
+
+print("\nDFS Traversal:", visited)
