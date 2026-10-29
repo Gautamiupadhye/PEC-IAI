@@ -1,0 +1,42 @@
+# DFS - Start State Root and Goal State M
+
+graph = {
+    "Root": ["A", "B"],
+    "A": ["C", "D"],
+    "B": ["E", "F"],
+    "C": ["G", "H"],
+    "D": ["I", "J"],
+    "E": [],
+    "F": [],
+    "G": ["K", "L"],
+    "H": [],
+    "I": [],
+    "J": ["M", "N"],
+    "K": [],
+    "L": [],
+    "M": [],
+    "N": []
+}
+
+start = "Root"
+goal = "M"
+
+stack = [start]
+visited = []
+
+while stack:
+    node = stack.pop()
+
+    if node not in visited:
+        visited.append(node)
+        print("Visited:", node)
+
+        if node == goal:
+            print("Goal state found!")
+            break
+
+        for child in reversed(graph[node]):
+            if child not in visited:
+                stack.append(child)
+
+print("\nDFS Traversal:", visited)
